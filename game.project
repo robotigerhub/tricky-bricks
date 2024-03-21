@@ -27,6 +27,7 @@ input_method = HiddenInputField
 [physics]
 gravity_y = -1000.0
 scale = 0.01
+use_fixed_timestep = 1
 
 [sprite]
 subpixels = 0
