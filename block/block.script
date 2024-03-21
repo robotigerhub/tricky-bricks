@@ -3,27 +3,34 @@ local vertical_speed = 50
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	self.dropping = true
+	self.can_move = true
 	msg.post("#dynamicco", "disable")
 end
 
 function update(self, dt)
 	if self.dropping then
-		local position = go.get_position()
-		position.y = position.y - vertical_speed*dt
-		go.set_position(position)
+		go.set_position(go.get_position() - vmath.vector3(0, vertical_speed*dt, 0))
 	end
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
+	if self.dropping and self.can_move then
+		if action_id == hash("left") then
+			move_and_wait(self, vmath.vector3(-9, 0, 0))
+		elseif action_id == hash("right") then
+			move_and_wait(self, vmath.vector3(9, 0, 0))
+		end
+	end
+end
+
+function move_and_wait(self, vector)
+	go.set_position(go.get_position() + vector)
+	self.can_move = false
+	timer.delay(0.1, false, allow_move)
+end
+
+function allow_move(self)
+	self.can_move = true
 end
 
 function on_message(self, message_id, message, sender)
