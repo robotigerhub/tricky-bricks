@@ -3,15 +3,11 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/logo.png"
+  image: "/assets/images/tile.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/builtins/graphics/particle_blob.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/images/tile_0003.png"
+  image: "/assets/images/support.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0
