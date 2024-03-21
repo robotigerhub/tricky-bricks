@@ -16,7 +16,7 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"tile_0003\"\n"
+  data: "default_animation: \"tile\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
@@ -39,7 +39,7 @@ embedded_components {
 embedded_components {
   id: "sprite1"
   type: "sprite"
-  data: "default_animation: \"tile_0003\"\n"
+  data: "default_animation: \"tile\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
@@ -62,7 +62,7 @@ embedded_components {
 embedded_components {
   id: "sprite2"
   type: "sprite"
-  data: "default_animation: \"tile_0003\"\n"
+  data: "default_animation: \"tile\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
@@ -85,7 +85,7 @@ embedded_components {
 embedded_components {
   id: "sprite3"
   type: "sprite"
-  data: "default_animation: \"tile_0003\"\n"
+  data: "default_animation: \"tile\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
