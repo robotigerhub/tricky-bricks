@@ -2,9 +2,9 @@ local vertical_speed = 50
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
+	msg.post("#dynamicco", "disable")
 	self.dropping = true
 	self.can_move = true
-	msg.post("#dynamicco", "disable")
 end
 
 function update(self, dt)
