@@ -27,6 +27,7 @@ input_method = HiddenInputField
 [physics]
 gravity_y = -100.0
 use_fixed_timestep = 1
+velocity_threshold = 10.0
 
 [graphics]
 default_texture_min_filter = nearest
