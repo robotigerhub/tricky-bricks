@@ -24,7 +24,7 @@ function on_input(self, action_id, action)
 	elseif action_id == hash("right") and self.can_move then
 		move_and_wait(self, vmath.vector3(9, 0, 0))
 	elseif action_id == hash("rotate") and action.pressed then
-		go.set_rotation(go.get_rotation()*q_90_about_z)
+		go.animate(".", "rotation", go.PLAYBACK_ONCE_FORWARD, go.get_rotation()*q_90_about_z, go.EASING_LINEAR, 0.08)
 	end
 end
 
