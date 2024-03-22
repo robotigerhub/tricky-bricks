@@ -1,3 +1,5 @@
+go.property("current", false)
+
 local vertical_speed = 50
 local q_90_about_z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
 
