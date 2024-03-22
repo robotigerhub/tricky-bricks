@@ -38,7 +38,9 @@ function allow_move(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if self.dropping and message_id == hash("collision_response") then
+	if self.dropping
+	and message_id == hash("contact_point_response")
+	and message.distance > 0.5 then
 		self.dropping = false
 		msg.post(".", "release_input_focus")
 		msg.post("#kinematicco", "disable")
