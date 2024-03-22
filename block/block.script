@@ -4,12 +4,12 @@ local q_90_about_z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
 function init(self)
 	msg.post(".", "acquire_input_focus")
 	msg.post("#dynamicco", "disable")
-	self.dropping = true
+	self.current = true
 	self.can_move = true
 end
 
 function update(self, dt)
-	if self.dropping then
+	if self.current then
 		move(vmath.vector3(0, -vertical_speed*dt, 0))
 	end
 end
@@ -39,10 +39,10 @@ function allow_move(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if self.dropping
+	if self.current
 	and message_id == hash("contact_point_response")
 	and message.distance > 0.5 then
-		self.dropping = false
+		self.current = false
 		msg.post(".", "release_input_focus")
 		msg.post("#kinematicco", "disable")
 		msg.post("#dynamicco", "enable")
