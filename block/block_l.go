@@ -26,7 +26,7 @@ embedded_components {
   ""
   position {
     x: 0.0
-    y: 0.0
+    y: -18.0
     z: 0.0
   }
   rotation {
@@ -49,7 +49,7 @@ embedded_components {
   ""
   position {
     x: 0.0
-    y: 18.0
+    y: 0.0
     z: 0.0
   }
   rotation {
@@ -72,7 +72,7 @@ embedded_components {
   ""
   position {
     x: 0.0
-    y: 36.0
+    y: 18.0
     z: 0.0
   }
   rotation {
@@ -95,7 +95,7 @@ embedded_components {
   ""
   position {
     x: 18.0
-    y: 0.0
+    y: -18.0
     z: 0.0
   }
   rotation {
@@ -120,7 +120,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 18.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -137,7 +137,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 18.0\n"
-  "      y: 0.0\n"
+  "      y: -18.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -189,7 +189,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 18.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -206,7 +206,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 18.0\n"
-  "      y: 0.0\n"
+  "      y: -18.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
