@@ -1,4 +1,4 @@
-local factory_types = {"s", "z", "j", "l", "o", "i", "t"}
+local block_types = {"s", "z", "j", "l", "o", "i", "t"}
 
 function init(self)
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
@@ -12,6 +12,6 @@ function on_message(self, message_id, message, sender)
 end
 
 function spawn_block()
-	local f = "#factory" .. factory_types[math.random(#factory_types)]
+	local f = "#factory" .. block_types[math.random(#block_types)]
 	factory.create(f, go.get_position("spawnpoint"))
 end
