@@ -25,7 +25,7 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 0.0
+    x: -9.0
     y: -9.0
     z: 0.0
   }
@@ -48,7 +48,7 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 0.0
+    x: -9.0
     y: 9.0
     z: 0.0
   }
@@ -71,8 +71,8 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 0.0
-    y: 27.0
+    x: 9.0
+    y: 9.0
     z: 0.0
   }
   rotation {
@@ -94,7 +94,7 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 18.0
+    x: 9.0
     y: -9.0
     z: 0.0
   }
@@ -120,7 +120,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 9.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -133,28 +133,8 @@ embedded_components {
   "    count: 3\n"
   "    id: \"\"\n"
   "  }\n"
-  "  shapes {\n"
-  "    shape_type: TYPE_BOX\n"
-  "    position {\n"
-  "      x: 18.0\n"
-  "      y: -9.0\n"
-  "      z: 0.0\n"
-  "    }\n"
-  "    rotation {\n"
-  "      x: 0.0\n"
-  "      y: 0.0\n"
-  "      z: 0.0\n"
-  "      w: 1.0\n"
-  "    }\n"
-  "    index: 3\n"
-  "    count: 3\n"
-  "    id: \"\"\n"
-  "  }\n"
-  "  data: 9.0\n"
-  "  data: 27.0\n"
-  "  data: 9.0\n"
-  "  data: 9.0\n"
-  "  data: 9.0\n"
+  "  data: 18.0\n"
+  "  data: 18.0\n"
   "  data: 9.0\n"
   "}\n"
   "linear_damping: 0.0\n"
@@ -189,7 +169,7 @@ embedded_components {
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: 9.0\n"
+  "      y: 0.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -202,28 +182,8 @@ embedded_components {
   "    count: 3\n"
   "    id: \"\"\n"
   "  }\n"
-  "  shapes {\n"
-  "    shape_type: TYPE_BOX\n"
-  "    position {\n"
-  "      x: 18.0\n"
-  "      y: -9.0\n"
-  "      z: 0.0\n"
-  "    }\n"
-  "    rotation {\n"
-  "      x: 0.0\n"
-  "      y: 0.0\n"
-  "      z: 0.0\n"
-  "      w: 1.0\n"
-  "    }\n"
-  "    index: 3\n"
-  "    count: 3\n"
-  "    id: \"\"\n"
-  "  }\n"
-  "  data: 9.0\n"
-  "  data: 27.0\n"
-  "  data: 9.0\n"
-  "  data: 9.0\n"
-  "  data: 9.0\n"
+  "  data: 18.0\n"
+  "  data: 18.0\n"
   "  data: 9.0\n"
   "}\n"
   "linear_damping: 0.0\n"

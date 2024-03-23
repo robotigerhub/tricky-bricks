@@ -94,7 +94,7 @@ embedded_components {
   "}\n"
   ""
   position {
-    x: 18.0
+    x: -18.0
     y: -9.0
     z: 0.0
   }
@@ -136,7 +136,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 18.0\n"
+  "      x: -18.0\n"
   "      y: -9.0\n"
   "      z: 0.0\n"
   "    }\n"
@@ -205,7 +205,7 @@ embedded_components {
   "  shapes {\n"
   "    shape_type: TYPE_BOX\n"
   "    position {\n"
-  "      x: 18.0\n"
+  "      x: -18.0\n"
   "      y: -9.0\n"
   "      z: 0.0\n"
   "    }\n"
