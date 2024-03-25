@@ -1,0 +1,9 @@
+function move_up()
+	go.set_position(go.get_position() + vmath.vector3(0, 8*18, 0))
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("move_up") then
+		move_up()
+	end
+end

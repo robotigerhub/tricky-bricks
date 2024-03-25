@@ -1,84 +1,4 @@
 name: "main"
-instances {
-  id: "support"
-  prototype: "/support/support.go"
-  position {
-    x: 600.0
-    y: 310.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "support1"
-  prototype: "/support/support.go"
-  position {
-    x: 618.0
-    y: 310.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "support2"
-  prototype: "/support/support.go"
-  position {
-    x: 636.0
-    y: 310.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "support3"
-  prototype: "/support/support.go"
-  position {
-    x: 654.0
-    y: 310.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
 scale_along_z: 0
 embedded_instances {
   id: "main"
@@ -255,6 +175,25 @@ embedded_instances {
   "    w: 1.0\n"
   "  }\n"
   "}\n"
+  "embedded_components {\n"
+  "  id: \"factorysup\"\n"
+  "  type: \"factory\"\n"
+  "  data: \"prototype: \\\"/support/support.go\\\"\\n"
+  "load_dynamically: false\\n"
+  "dynamic_prototype: false\\n"
+  "\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
   ""
   position {
     x: 640.0
@@ -275,10 +214,27 @@ embedded_instances {
 }
 embedded_instances {
   id: "spawnpoint"
-  data: ""
+  data: "components {\n"
+  "  id: \"spawnpoint\"\n"
+  "  component: \"/spawnpoint/spawnpoint.script\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "  property_decls {\n"
+  "  }\n"
+  "}\n"
+  ""
   position {
-    x: 600.0
-    y: 560.0
+    x: 640.0
+    y: 300.0
     z: 0.0
   }
   rotation {
@@ -363,7 +319,7 @@ embedded_instances {
   "}\n"
   ""
   position {
-    x: 600.0
+    x: 640.0
     y: -150.0
     z: 0.0
   }
