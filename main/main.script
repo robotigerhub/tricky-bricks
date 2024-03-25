@@ -59,7 +59,7 @@ function get_rand_sup_positions()
 		local pos
 		repeat
 			local x = math.random(-stretch,stretch)*18
-			local y = -(8*18 + math.random(8)*18)
+			local y = -(16*18 + math.random(8)*18)
 			pos = spawn_pos + vmath.vector3(x, y, 0)
 		until not table_has(positions, pos)
 		table.insert(positions, pos)

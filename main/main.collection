@@ -191,7 +191,7 @@ embedded_instances {
 }
 embedded_instances {
   id: "spawnpoint"
-  children: "camera"
+  children: "viewport"
   data: "components {\n"
   "  id: \"spawnpoint\"\n"
   "  component: \"/spawnpoint/spawnpoint.script\"\n"
@@ -298,7 +298,7 @@ embedded_instances {
   ""
   position {
     x: 640.0
-    y: -150.0
+    y: -500.0
     z: 0.0
   }
   rotation {
@@ -314,7 +314,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "camera"
+  id: "viewport"
   data: "embedded_components {\n"
   "  id: \"camera\"\n"
   "  type: \"camera\"\n"
@@ -364,7 +364,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -200.0
+    y: -300.0
     z: 1.0
   }
   rotation {
