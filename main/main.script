@@ -8,7 +8,7 @@ local block_count = 0
 local level
 local spawn_block
 local check_level
-local get_rand_sup_positons
+local get_rand_sup_positions
 local table_has
 
 function init(self)
