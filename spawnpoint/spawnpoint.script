@@ -1,3 +1,8 @@
+function init(self)
+	msg.post("camera#camera", "acquire_camera_focus")
+	msg.post("@render:", "use_camera_projection")
+end
+
 function move_up()
 	go.set_position(go.get_position() + vmath.vector3(0, 8*18, 0))
 end
