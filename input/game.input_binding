@@ -10,3 +10,7 @@ key_trigger {
   input: KEY_SPACE
   action: "rotate"
 }
+key_trigger {
+  input: KEY_DOWN
+  action: "fast"
+}
