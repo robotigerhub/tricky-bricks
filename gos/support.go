@@ -6,7 +6,7 @@ embedded_components {
   "blend_mode: BLEND_MODE_ALPHA\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/main/main.atlas\"\n"
+  "  texture: \"/atlases/main.atlas\"\n"
   "}\n"
   ""
   position {
