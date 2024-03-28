@@ -2,8 +2,9 @@ go.property("current", false)
 
 local SPEED_LOW = 50
 local SPEED_HIGH = 120
-local speed = SPEED_LOW
 local Q_90_ABOUT_Z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
+
+local speed = SPEED_LOW
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
