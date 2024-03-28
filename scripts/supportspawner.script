@@ -1,9 +1,10 @@
-local common = require("modules.common")
+local c = require("modules.common")
 
 local SUPPORT_COUNT = 5
 
 local spawn_supports
 local get_rand_sup_positions
+local get_sup_offet
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_supports") then
@@ -24,11 +25,15 @@ function get_rand_sup_positions(stretch)
 	for _ = 1, SUPPORT_COUNT do
 		local pos
 		repeat
-			local x = math.random(-stretch,stretch)*18
-			local y = -(16*18 + math.random(8)*18)
-			pos = spawn_pos + vmath.vector3(x, y, 0)
-		until not common.table_has_vec(positions, pos)
+			pos = spawn_pos + get_sup_offset(stretch)
+		until not c.table_has_vec(positions, pos)
 		table.insert(positions, pos)
 	end
 	return positions
+end
+
+function get_sup_offset(stretch)
+	local x = math.random(-stretch,stretch)*c.TILE_SIZE
+	local y = -(2*c.SPAWNPOINT_RAISE + math.random(c.SPAWNPOINT_RAISE))
+	return vmath.vector3(x, y, 0)
 end

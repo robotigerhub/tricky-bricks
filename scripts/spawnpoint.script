@@ -1,3 +1,5 @@
+local c = require("modules.common")
+
 local move_up
 
 function on_message(self, message_id, message, sender)
@@ -7,5 +9,5 @@ function on_message(self, message_id, message, sender)
 end
 
 function move_up()
-	go.set_position(go.get_position() + vmath.vector3(0, 8*18, 0))
+	go.set_position(go.get_position() + vmath.vector3(0, c.SPAWNPOINT_RAISE, 0))
 end
