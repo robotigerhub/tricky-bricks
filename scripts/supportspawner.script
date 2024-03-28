@@ -1,0 +1,34 @@
+local common = require("modules.common")
+
+local SUPPORT_COUNT = 5
+
+local spawn_supports
+local get_rand_sup_positions
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn_supports") then
+		spawn_supports(message.stretch)
+	end
+end
+
+function spawn_supports(stretch)
+	local positions = get_rand_sup_positions(stretch)
+	for _,v in ipairs(positions) do
+		factory.create("#factory", v)
+	end
+end
+
+function get_rand_sup_positions(stretch)
+	local positions = {}
+	local spawn_pos = go.get_position("/spawnpoint")
+	for _ = 1, SUPPORT_COUNT do
+		local pos
+		repeat
+			local x = math.random(-stretch,stretch)*18
+			local y = -(16*18 + math.random(8)*18)
+			pos = spawn_pos + vmath.vector3(x, y, 0)
+		until not common.table_has_vec(positions, pos)
+		table.insert(positions, pos)
+	end
+	return positions
+end

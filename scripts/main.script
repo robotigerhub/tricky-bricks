@@ -1,42 +1,25 @@
-local common = require("modules.common")
-
-local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
-local SUPPORT_COUNT = 5
 local LEVEL_STEP = 10
 local STRETCH_STEP = 2
 local level_count = LEVEL_STEP
-local stretch = 5
 local block_count = 0
+local stretch = 5
 
-local level
-local spawn_block
 local check_level
-local get_rand_sup_positions
-local table_has
 
 function init(self)
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 	math.randomseed(os.time())
 	math.random();math.random();math.random();
-	spawn_supports()
-	spawn_block()
+	msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
+	msg.post("/blockspawner#script", "spawn_block")
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("block_put") then
 		block_count = block_count + 1
 		check_level(self)
-		msg.post("#", "spawn_block")
-	elseif message_id == hash("spawn_block") then
-		spawn_block()
-	elseif message_id == hash("spawn_supports") then
-		spawn_supports()
+		msg.post("/blockspawner#script", "spawn_block")
 	end
-end
-
-function spawn_block()
-	local f = "#factory" .. BLOCK_TYPES[math.random(#BLOCK_TYPES)]
-	factory.create(f, go.get_position("spawnpoint"))
 end
 
 function check_level(self)
@@ -44,28 +27,6 @@ function check_level(self)
 		level_count = level_count + LEVEL_STEP
 		stretch = stretch + STRETCH_STEP
 		msg.post("/spawnpoint", "move_up")
-		msg.post("#", "spawn_supports")
+		msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
 	end
-end
-
-function spawn_supports()
-	local positions = get_rand_sup_positions()
-	for _,v in ipairs(positions) do
-		factory.create("#factorysup", v)
-	end
-end
-
-function get_rand_sup_positions()
-	local positions = {}
-	local spawn_pos = go.get_position("/spawnpoint")
-	for _ = 1, SUPPORT_COUNT do
-		local pos
-		repeat
-			local x = math.random(-stretch,stretch)*18
-			local y = -(16*18 + math.random(8)*18)
-			pos = spawn_pos + vmath.vector3(x, y, 0)
-		until not common.table_has_vec(positions, pos)
-		table.insert(positions, pos)
-	end
-	return positions
 end

@@ -1,0 +1,14 @@
+local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
+
+local spawn_block
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn_block") then
+		spawn_block()
+	end
+end
+
+function spawn_block()
+	local f = "#factory" .. BLOCK_TYPES[math.random(#BLOCK_TYPES)]
+	factory.create(f, go.get_position("/spawnpoint"))
+end

@@ -54,6 +54,6 @@ function on_message(self, message_id, message, sender)
 		msg.post(".", "release_input_focus")
 		msg.post("#kinematicco", "disable")
 		msg.post("#dynamicco", "enable")
-		msg.post("main#main", "block_put")
+		msg.post("/main#script", "block_put")
 	end
 end
