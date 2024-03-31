@@ -22,7 +22,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"background\"\n"
   "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"background\\\"\\n"
+  "  data: \"default_animation: \\\"blue\\\"\\n"
   "material: \\\"/builtins/materials/sprite.material\\\"\\n"
   "blend_mode: BLEND_MODE_ALPHA\\n"
   "textures {\\n"
@@ -45,7 +45,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: 0.0
+    y: -213.0
     z: 0.0
   }
   rotation {
