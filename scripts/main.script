@@ -11,7 +11,7 @@ function init(self)
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 	math.randomseed(os.time())
 	math.random();math.random();math.random();
-	msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
+	msg.post("/basespawner#script", "spawn_base")
 	msg.post("/blockspawner#script", "spawn_block")
 end
 

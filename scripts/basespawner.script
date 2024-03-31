@@ -1,0 +1,14 @@
+local BASE_TYPE_COUNT = 3
+
+local spawn_base
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn_base") then
+		spawn_base()
+	end
+end
+
+function spawn_base()
+	local f = "#factory" .. math.random(BASE_TYPE_COUNT)
+	factory.create(f, go.get_position("/basepoint"))
+end
