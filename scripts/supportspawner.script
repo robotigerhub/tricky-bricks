@@ -34,6 +34,6 @@ end
 
 function get_sup_offset(stretch)
 	local x = math.random(-stretch,stretch)*c.TILE_SIZE
-	local y = -(2*c.SPAWNPOINT_RAISE + math.random(c.SPAWNPOINT_RAISE))
+	local y = -(2*c.SPAWNPOINT_RAISE + math.random(c.SPAWNPOINT_RAISE))*c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end

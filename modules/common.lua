@@ -1,7 +1,7 @@
 local M = {}
 
-M.TILE_SIZE = 18
-M.SPAWNPOINT_RAISE = 8*M.TILE_SIZE
+M.TILE_SIZE = 18  -- px
+M.SPAWNPOINT_RAISE = 8  -- tiles
 
 function M.table_has_vec(t, vec)
 	for i = 1,#t do
