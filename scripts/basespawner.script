@@ -10,5 +10,5 @@ end
 
 function spawn_base()
 	local f = "#factory" .. math.random(BASE_TYPE_COUNT)
-	factory.create(f, go.get_position("/basepoint"))
+	factory.create(f, go.get_position("."))
 end

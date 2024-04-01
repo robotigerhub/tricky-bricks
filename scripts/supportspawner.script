@@ -21,7 +21,7 @@ end
 
 function get_rand_sup_positions(stretch)
 	local positions = {}
-	local spawn_pos = go.get_position("/spawnpoint")
+	local spawn_pos = go.get_position("/blockspawner")
 	for _ = 1, SUPPORT_COUNT do
 		local pos
 		repeat

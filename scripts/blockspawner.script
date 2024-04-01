@@ -1,14 +1,23 @@
+local c = require("modules.common")
+
 local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
 
 local spawn_block
+local move_up
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_block") then
 		spawn_block()
+	elseif message_id == hash("move_up") then
+		move_up()
 	end
 end
 
 function spawn_block()
 	local f = "#factory" .. BLOCK_TYPES[math.random(#BLOCK_TYPES)]
-	factory.create(f, go.get_position("/spawnpoint"))
+	factory.create(f, go.get_position("."))
+end
+
+function move_up()
+	go.set_position(go.get_position() + vmath.vector3(0, c.SPAWNPOINT_RAISE*c.TILE_SIZE, 0))
 end
