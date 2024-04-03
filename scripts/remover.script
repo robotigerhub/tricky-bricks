@@ -1,9 +1,11 @@
+c = require("modules.common")
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
 		go.delete(message.other_id)
 		local url = msg.url(nil, message.other_id, "block")
-		if go.get(url, "current") then
-			msg.post("main#main", "spawn_block")
+		if c.is_state(go.get(url, "state"), c.STATES.current) then
+			msg.post("/blockspawner#script", "spawn_block")
 		end
 	end
 end
