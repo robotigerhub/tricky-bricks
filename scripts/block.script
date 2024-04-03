@@ -7,7 +7,7 @@ local SPEED_HIGH = 120
 local Q_90_ABOUT_Z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
 
 local speed = SPEED_LOW
-local move, move_and_block, block, unblock
+local move, move_and_block, block, unblock, check_fall, touched_enough
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
@@ -56,13 +56,29 @@ function unblock(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if c.is_state(self.state, c.STATES.current)
-	and message_id == hash("contact_point_response")
-	and message.distance > 0.5 then
+	if c.is_state(self.state, c.STATES.current) and touched_enough(message_id, message) then
 		self.state = c.STATES.put
 		msg.post(".", "release_input_focus")
 		msg.post("#kinematicco", "disable")
 		msg.post("#dynamicco", "enable")
 		msg.post("/main#script", "block_put")
+		msg.post("/blockspawner#script", "spawn_block")
+		timer.delay(1, true, check_fall)
+	elseif c.is_state(self.state, c.STATES.falling) and touched_enough(message_id, message) then
+		self.state = c.STATES.put
+		msg.post("/main#script", "block_put")
+		timer.delay(1, true, check_fall)
+	end
+end
+
+function touched_enough(message_id, message)
+	return message_id == hash("contact_point_response") and message.distance > 0.5
+end
+
+function check_fall(self, handle, time_elapsed)
+	if vmath.length_sqr(go.get("#dynamicco", "linear_velocity")) > 400 then
+		self.state = c.STATES.falling
+		msg.post("/main#script", "block_lost")
+		timer.cancel(handle)
 	end
 end

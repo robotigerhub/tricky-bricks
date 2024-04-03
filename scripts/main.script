@@ -19,7 +19,8 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("block_put") then
 		block_count = block_count + 1
 		check_level(self)
-		msg.post("/blockspawner#script", "spawn_block")
+	elseif message_id == hash("block_lost") then
+		block_count = block_count - 1
 	end
 end
 
