@@ -20,7 +20,7 @@ function M.is_state(my_state, state)
 		return my_state == state
 	elseif type(state) == "table" then
 		for _, v in pairs(state) do
-			if my_state == v then
+			if M.is_state(my_state, v) then
 				return true
 			end
 		end
