@@ -490,8 +490,8 @@ embedded_instances {
   "  type: \"camera\"\n"
   "  data: \"aspect_ratio: 1.0\\n"
   "fov: 0.7854\\n"
-  "near_z: 1.0\\n"
-  "far_z: 200.0\\n"
+  "near_z: 0.0\\n"
+  "far_z: 400.0\\n"
   "auto_aspect_ratio: 1\\n"
   "orthographic_projection: 1\\n"
   "orthographic_zoom: 1.0\\n"
@@ -512,7 +512,7 @@ embedded_instances {
   position {
     x: 0.0
     y: -700.0
-    z: 1.0
+    z: 200.0
   }
   rotation {
     x: 0.0
@@ -577,7 +577,7 @@ embedded_instances {
   "friction: 0.1\\n"
   "restitution: 0.5\\n"
   "group: \\\"deadline\\\"\\n"
-  "mask: \\\"block\\\"\\n"
+  "mask: \\\"block-put\\\"\\n"
   "embedded_collision_shape {\\n"
   "  shapes {\\n"
   "    shape_type: TYPE_BOX\\n"
@@ -621,7 +621,7 @@ embedded_instances {
   position {
     x: 0.0
     y: -853.0
-    z: 0.0
+    z: 1.0
   }
   rotation {
     x: 0.0

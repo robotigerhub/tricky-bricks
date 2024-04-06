@@ -1,11 +1,11 @@
-local LEVEL_STEP = 10
+local LEVEL_STEP = 2
 local STRETCH_STEP = 2
 
 local level_count = LEVEL_STEP
 local block_count = 0
 local stretch = 5
 
-local check_level
+local check_level, post_spawn_message
 
 function init(self)
 	math.randomseed(os.time())
@@ -18,9 +18,19 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("block_put") then
 		block_count = block_count + 1
 		check_level(self)
+		timer.delay(0.05, false, post_spawn_message)
 	elseif message_id == hash("block_lost") then
 		block_count = block_count - 1
+	elseif message_id == hash("block_saved") then
+		block_count = block_count + 1
+		check_level(self)
+	elseif message_id == hash("show_game_over") then
+		print("YOUR SCORE:", block_count)
 	end
+end
+
+function post_spawn_message()
+	msg.post("/blockspawner#script", "spawn_block")
 end
 
 function check_level(self)
@@ -29,5 +39,6 @@ function check_level(self)
 		stretch = stretch + STRETCH_STEP
 		msg.post("/blockspawner#script", "move_up")
 		msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
+		msg.post("/deadline#script", "move_up")
 	end
 end

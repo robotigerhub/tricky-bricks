@@ -67,13 +67,12 @@ function on_message(self, message_id, message, sender)
 		msg.post("#kinematicco", "disable")
 		msg.post("#dynamicco", "enable")
 		msg.post("/main#script", "block_put")
-		msg.post("/blockspawner#script", "spawn_block")
 		timer.delay(1, true, check_fall)
 	elseif c.is_state(self.state, c.STATES.falling)
 	and message_id == hash("contact_point_response")
 	and not is_fast() then
 		self.state = c.STATES.put
-		msg.post("/main#script", "block_put")
+		msg.post("/main#script", "block_saved")
 		timer.delay(1, true, check_fall)
 	end
 end

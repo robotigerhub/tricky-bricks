@@ -5,11 +5,19 @@ local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
 local spawn_block
 local move_up
 
+function init(self)
+	self.spawn = true
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_block") then
-		spawn_block()
+		if self.spawn then
+			spawn_block()
+		end
 	elseif message_id == hash("move_up") then
 		move_up()
+	elseif message_id == hash("stop_spawning") then
+		self.spawn = false
 	end
 end
 
