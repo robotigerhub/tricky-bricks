@@ -1,4 +1,4 @@
-local LEVEL_STEP = 2
+local LEVEL_STEP = 10
 local STRETCH_STEP = 2
 
 local level_count = LEVEL_STEP
