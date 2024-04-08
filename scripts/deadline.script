@@ -13,6 +13,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
 		msg.post("/blockspawner#script", "stop_spawning")
+		_, time = coroutine.resume(self.cd, self)
+		print(time)
 		timer.delay(1, true, continue_countdown)
 	elseif message_id == hash("move_up") then
 		local new_position = go.get_position() + vmath.vector3(0, 50, 0)
