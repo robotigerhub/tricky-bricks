@@ -2,8 +2,7 @@ local c = require("modules.common")
 
 local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
 
-local spawn_block
-local move_up
+local spawn_block, move_up
 
 function init(self)
 	self.spawn = true
@@ -13,11 +12,14 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_block") then
 		if self.spawn then
 			spawn_block()
+			msg.post("/main#script", "block_spawned")
 		end
 	elseif message_id == hash("move_up") then
 		move_up()
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
+	elseif message_id == hash("resume_spawning") then
+		self.spawn = true
 	end
 end
 

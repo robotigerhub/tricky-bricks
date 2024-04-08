@@ -5,7 +5,7 @@ function on_message(self, message_id, message, sender)
 		go.delete(message.other_id)
 		local url = msg.url(nil, message.other_id, "block")
 		if c.is_state(go.get(url, "state"), c.STATES.current) then
-			msg.post("/blockspawner#script", "spawn_block")
+			msg.post("/main#script", "current_block_removed")
 		end
 	end
 end
