@@ -27,5 +27,5 @@ function spawn_block()
 end
 
 function move_up()
-	go.set_position(go.get_position() + vmath.vector3(0, c.SPAWNPOINT_RAISE*c.TILE_SIZE, 0))
+	go.set_position(go.get_position() + vmath.vector3(0, c.DEADLINE_RAISE*c.TILE_SIZE, 0))
 end

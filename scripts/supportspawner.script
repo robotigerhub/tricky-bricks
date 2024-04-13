@@ -1,10 +1,8 @@
 local c = require("modules.common")
 
-local SUPPORT_COUNT = 5
+local SUPPORT_COUNT = 4
 
-local spawn_supports
-local get_rand_sup_positions
-local get_sup_offet
+local spawn_supports, get_rand_sup_positions, get_sup_offet
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_supports") then
@@ -21,11 +19,11 @@ end
 
 function get_rand_sup_positions(stretch)
 	local positions = {}
-	local spawn_pos = go.get_position("/blockspawner")
+	local deadline_pos = go.get_position("/deadline")
 	for _ = 1, SUPPORT_COUNT do
 		local pos
 		repeat
-			pos = spawn_pos + get_sup_offset(stretch)
+			pos = deadline_pos + get_sup_offset(stretch)
 		until not c.table_has_vec(positions, pos)
 		table.insert(positions, pos)
 	end
@@ -34,6 +32,6 @@ end
 
 function get_sup_offset(stretch)
 	local x = math.random(-stretch,stretch)*c.TILE_SIZE
-	local y = -(2*c.SPAWNPOINT_RAISE + math.random(c.SPAWNPOINT_RAISE))*c.TILE_SIZE
+	local y = (math.random(c.DEADLINE_RAISE) - c.DEADLINE_RAISE)*c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end

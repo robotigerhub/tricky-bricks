@@ -1,7 +1,7 @@
 local M = {}
 
 M.TILE_SIZE = 18  -- px
-M.SPAWNPOINT_RAISE = 8  -- tiles
+M.DEADLINE_RAISE = 4  -- tiles
 M.STATES = {current = {still = 1, skidding = 2}, put = 3, falling = 4}
 
 function M.table_has_vec(t, vec)
