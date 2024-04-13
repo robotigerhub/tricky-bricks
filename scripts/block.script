@@ -7,7 +7,7 @@ local SPEED_HIGH = 120
 local Q_90_ABOUT_Z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
 
 local speed = SPEED_LOW
-local move, move_and_block, block, unblock, is_fast, check_fall
+local move, move_and_block, is_fast, check_fall
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
@@ -44,18 +44,13 @@ end
 
 function move_and_block(self, vector)
 	move(vector)
-	block(self, 0.1)
-end
-
-function block(self, secs)
 	self.state = c.STATES.current.skidding
-	timer.delay(secs, false, unblock)
-end
-
-function unblock(self)
-	if c.is_state(self.state, c.STATES.current.skidding) then
-		self.state = c.STATES.current.still
-	end
+	timer.delay(0.1, false,
+		function(self, handle, time_elapsed)
+			if c.is_state(self.state, c.STATES.current.skidding) then
+				self.state = c.STATES.current.still
+			end
+		end)
 end
 
 function on_message(self, message_id, message, sender)
