@@ -30,31 +30,30 @@ function on_message(self, message_id, message, sender)
 		print("YOUR SCORE:", total_block_count)
 	elseif message_id == hash("current_block_removed") then
 		after_block_put()
+	elseif message_id == hash("deadline_moved") then
+		msg.post("/blockspawner#script", "move_up")
+		msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
+		msg.post("/blockspawner#script", "spawn_block")
 	end
 end
 
 function after_block_put()
 	if blocks_to_spawn == 0 then
 		switch_level()
+	else
+		timer.delay(0.05, false, function()
+			msg.post("/blockspawner#script", "spawn_block")
+		end)
 	end
-	timer.delay(0.05, false, post_spawn_message)
 end
 
 function update_gui()
 	do end
 end
 
-function post_spawn_message()
-	msg.post("/blockspawner#script", "spawn_block")
-end
-
 function switch_level()
 	blocks_to_spawn = last_level + LEVEL_STEP
 	last_level = blocks_to_spawn
 	stretch = stretch + STRETCH_STEP
-	msg.post("/blockspawner#script", "stop_spawning")
 	msg.post("/deadline#script", "move_up")
-	msg.post("/blockspawner#script", "move_up")
-	msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
-	msg.post("/blockspawner#script", "resume_spawning")
 end
