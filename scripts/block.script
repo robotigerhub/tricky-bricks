@@ -18,6 +18,7 @@ end
 function update(self, dt)
 	if c.is_state(self.state, c.STATES.current) then
 		move(vmath.vector3(0, -speed*dt, 0))
+		speed = SPEED_LOW
 	end
 end
 
@@ -39,10 +40,8 @@ function on_input(self, action_id, action)
 			".", "rotation", go.PLAYBACK_ONCE_FORWARD,
 			go.get_rotation()*Q_90_ABOUT_Z, go.EASING_LINEAR, 0.08
 		)
-	elseif action_id == hash("fast") and action.pressed then
+	elseif action_id == hash("fast") then
 		speed = SPEED_HIGH
-	elseif action_id == hash("fast") and action.released then
-		speed = SPEED_LOW
 	end
 end
 
