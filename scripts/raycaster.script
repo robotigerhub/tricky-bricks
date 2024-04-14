@@ -1,0 +1,16 @@
+local c = require("modules.common")
+
+function update(self, dt)
+	local block_hit = cast_ray()
+	while block_hit do
+		go.set(".", "position.y", go.get_position().y + c.TILE_SIZE)
+		block_hit = cast_ray()
+	end
+end
+
+function cast_ray()
+	return physics.raycast(
+		go.get_position(), go.get_position() - vmath.vector3(1000, 0, 0),
+		{hash("block-put")}, {all=false}
+	)
+end
