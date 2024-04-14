@@ -1,10 +1,8 @@
 local LEVEL_STEP = 2
-local STRETCH_STEP = 2
 
-local blocks_to_spawn = 6
+local blocks_to_spawn = 1
 local last_level = blocks_to_spawn
 local total_block_count = 0
-local stretch = 5
 
 local after_block_put, update_gui, post_spawn_message, switch_level
 
@@ -32,7 +30,7 @@ function on_message(self, message_id, message, sender)
 		after_block_put()
 	elseif message_id == hash("deadline_moved") then
 		msg.post("/blockspawner#script", "move_up")
-		msg.post("/supportspawner#script", "spawn_supports", {stretch = stretch})
+		msg.post("/supportspawner#script", "spawn_supports")
 		msg.post("/blockspawner#script", "spawn_block")
 	end
 end
@@ -54,6 +52,5 @@ end
 function switch_level()
 	blocks_to_spawn = last_level + LEVEL_STEP
 	last_level = blocks_to_spawn
-	stretch = stretch + STRETCH_STEP
 	msg.post("/deadline#script", "move_up")
 end

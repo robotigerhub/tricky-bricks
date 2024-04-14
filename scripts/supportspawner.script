@@ -6,32 +6,35 @@ local spawn_supports, get_rand_sup_positions, get_sup_offet
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_supports") then
-		spawn_supports(message.stretch)
+		spawn_supports()
 	end
 end
 
-function spawn_supports(stretch)
-	local positions = get_rand_sup_positions(stretch)
+function spawn_supports()
+	local positions = get_rand_sup_positions()
 	for _,v in ipairs(positions) do
 		factory.create("#factory", v)
 	end
 end
 
-function get_rand_sup_positions(stretch)
+function get_rand_sup_positions()
 	local positions = {}
 	local deadline_pos = go.get_position("/deadline")
 	for _ = 1, SUPPORT_COUNT do
 		local pos
 		repeat
-			pos = deadline_pos + get_sup_offset(stretch)
+			pos = deadline_pos + get_sup_offset()
 		until not c.table_has_vec(positions, pos)
 		table.insert(positions, pos)
 	end
 	return positions
 end
 
-function get_sup_offset(stretch)
-	local x = math.random(-stretch,stretch)*c.TILE_SIZE
+function get_sup_offset()
+	local x = math.random(c.SUPPORT_X_MIN, c.SUPPORT_X_MAX)*c.TILE_SIZE
+	if math.random() < 0.5 then
+		x = -x
+	end
 	local y = (math.random(c.DEADLINE_RAISE) - c.DEADLINE_RAISE)*c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end
