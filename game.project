@@ -31,6 +31,7 @@ velocity_threshold = 10.0
 max_collision_object_count = 512
 max_collisions = 256
 max_contacts = 512
+scale = 0.1
 
 [graphics]
 default_texture_min_filter = nearest
