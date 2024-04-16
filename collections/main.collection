@@ -32,7 +32,7 @@ embedded_instances {
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"
-  "    y: 0.0\n"
+  "    y: 7.0\n"
   "    z: -100.0\n"
   "  }\n"
   "  rotation {\n"
@@ -45,7 +45,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -213.0
+    y: -206.0
     z: 0.0
   }
   rotation {
@@ -131,7 +131,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -1200.0
+    y: -1193.0
     z: 0.0
   }
   rotation {
@@ -301,7 +301,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -600.0
+    y: -593.0
     z: 2.0
   }
   rotation {
@@ -357,7 +357,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: 0.0
+    y: 7.0
     z: 0.0
   }
   rotation {
@@ -451,7 +451,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -1015.0
+    y: -1008.0
     z: 0.0
   }
   rotation {
@@ -511,7 +511,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -700.0
+    y: -693.0
     z: 200.0
   }
   rotation {
@@ -620,7 +620,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: -871.0
+    y: -864.0
     z: 1.0
   }
   rotation {
@@ -667,7 +667,7 @@ embedded_instances {
   "\"\n"
   "  position {\n"
   "    x: -10.0\n"
-  "    y: 0.0\n"
+  "    y: 7.0\n"
   "    z: 0.0\n"
   "  }\n"
   "  rotation {\n"
@@ -680,7 +680,7 @@ embedded_instances {
   ""
   position {
     x: 640.0
-    y: -961.0
+    y: -954.0
     z: 0.0
   }
   rotation {
