@@ -2,9 +2,13 @@ local c = require("modules.common")
 
 local DIRS = {up=1, down=2}
 
-local cast_ray, move_one_tile
+local adjust, cast_ray, move_one_tile
 
-function update(self, dt)
+function init(self)
+	timer.delay(1, true, adjust)
+end
+
+function adjust()
 	repeat
 		local upper_hit = cast_ray(go.get_position())
 		local lower_hit = cast_ray(go.get_position() - vmath.vector3(0, c.TILE_SIZE, 0))
