@@ -1,6 +1,6 @@
 local LEVEL_STEP = 2
 
-local blocks_to_spawn = 6
+local blocks_to_spawn = 1
 local last_level = blocks_to_spawn
 local total_block_count = 0
 

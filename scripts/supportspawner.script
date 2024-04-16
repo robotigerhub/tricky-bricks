@@ -2,32 +2,25 @@ local c = require("modules.common")
 
 local SUPPORT_COUNT = 4
 
-local spawn_supports, get_rand_sup_positions, get_sup_offet
+local spawn_supports, get_sup_offet
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_supports") then
-		spawn_supports()
+		for _ = 1, SUPPORT_COUNT do
+			spawn_support()
+		end
 	end
 end
 
-function spawn_supports()
-	local positions = get_rand_sup_positions()
-	for _,v in ipairs(positions) do
-		factory.create("#factory", v)
-	end
-end
-
-function get_rand_sup_positions()
-	local positions = {}
-	local deadline_pos = go.get_position("/deadline")
-	for _ = 1, SUPPORT_COUNT do
-		local pos
-		repeat
-			pos = deadline_pos + get_sup_offset()
-		until not c.table_has_vec(positions, pos)
-		table.insert(positions, pos)
-	end
-	return positions
+function spawn_support()
+	local position
+	repeat
+		position = go.get_position("/deadline") + get_sup_offset()
+		local from = position
+		local to = position + vmath.vector3(1, 0, 0)
+		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
+	until not taken
+	factory.create("#factory", position)
 end
 
 function get_sup_offset()
