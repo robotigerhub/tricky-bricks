@@ -5,7 +5,10 @@ local DIRS = {up=1, down=2}
 local adjust, cast_ray, move_one_tile
 
 function init(self)
-	timer.delay(1, true, adjust)
+	timer.delay(1, true, function()
+		adjust()
+		msg.post("/camera#script", "adjust")
+	end)
 end
 
 function adjust()

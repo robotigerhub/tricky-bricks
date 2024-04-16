@@ -1,4 +1,16 @@
+local BASE_POSITION_Y
+
 function init(self)
+	BASE_POSITION_Y = go.get_position().y
 	msg.post("#camera", "acquire_camera_focus")
 	msg.post("@render:", "use_camera_projection")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("adjust") then
+		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
+			math.max(BASE_POSITION_Y, go.get("/raycaster", "position.y")),
+			go.EASING_LINEAR, 1
+		)
+	end
 end
