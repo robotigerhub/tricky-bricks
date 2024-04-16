@@ -14,6 +14,8 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
+		go.delete(message.other_id)
+		msg.post("/main", "block_lost")
 		msg.post("/blockspawner#script", "stop_spawning")
 		msg.post("/blockspawner#script", "delete_last_block")
 		_, time = coroutine.resume(self.cd, self)
