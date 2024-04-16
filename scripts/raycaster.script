@@ -5,6 +5,7 @@ local DIRS = {up=1, down=2}
 local adjust, cast_ray, move_one_tile
 
 function init(self)
+	msg.post("#sprite", "disable")
 	timer.delay(1, true, function()
 		adjust()
 		msg.post("/camera#script", "adjust", {position_y = go.get_position().y})
