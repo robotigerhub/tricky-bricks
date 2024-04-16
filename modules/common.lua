@@ -2,8 +2,8 @@ local M = {}
 
 M.TILE_SIZE = 18  -- px
 M.DEADLINE_RAISE = 6  -- tiles
-M.SUPPORT_X_MIN = 6  -- tiles
-M.SUPPORT_X_MAX = 10  -- tiles
+M.SUPPORT_X_MIN = 4  -- tiles
+M.SUPPORT_X_MAX = 8  -- tiles
 M.STATES = {current = {still = 1, skidding = 2}, put = 3, falling = 4}
 
 function M.table_has_vec(t, vec)
