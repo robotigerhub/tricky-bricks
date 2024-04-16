@@ -7,7 +7,7 @@ local adjust, cast_ray, move_one_tile
 function init(self)
 	timer.delay(1, true, function()
 		adjust()
-		msg.post("/camera#script", "adjust")
+		msg.post("/camera#script", "adjust", {position_y = go.get_position().y})
 	end)
 end
 

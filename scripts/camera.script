@@ -9,7 +9,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("adjust") then
 		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
-			math.max(BASE_POSITION_Y, go.get("/raycaster", "position.y")),
+			math.max(BASE_POSITION_Y, message.position_y),
 			go.EASING_LINEAR, 1
 		)
 	end
