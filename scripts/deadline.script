@@ -1,27 +1,57 @@
--- TODO: solve for move up and down at the same time (one animation gets cancelled)
-
 local c = require("modules.common")
 
-local consume_down_by, move_down, countdown, continue_countdown
+local consume_down_by, animate_or_queue, move_down, move_up, animation_complete
+local countdown, continue_countdown
 
 function init(self)
 	self.cd = coroutine.create(countdown)
 	self.down_by = 0
+	self.animation_queue = {}
+	self.animating = false
 	timer.delay(1, true, consume_down_by)
 end
 
 function consume_down_by(self, handle, time_elapsed)
 	if self.down_by > 0 then
-		move_down(self.down_by)
-		self.down_by = 0
+		animate_or_queue(self, move_down)
 	end
 end
 
-function move_down(down_by)
-	local new_position_y = go.get_position().y - down_by*c.TILE_SIZE
+function animate_or_queue(self, animation)
+	if not self.animating then
+		self.animating = true
+		animation(self)
+	else
+		table.insert(self.animation_queue, animation)
+	end
+end
+
+function move_down(self)
+	local new_position_y = go.get_position().y - self.down_by*c.TILE_SIZE
+	self.down_by = 0
 	go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
-		new_position_y, go.EASING_INOUTQUAD, 0.5
+		new_position_y, go.EASING_INOUTQUAD, 0.5, 0, animation_complete
 	)
+end
+
+function move_up(self)
+	local new_position_y = go.get_position().y + c.DEADLINE_RAISE*c.TILE_SIZE
+	go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
+		new_position_y, go.EASING_INOUTQUAD, 0.5, 0,
+		function(self)
+			msg.post("/main#script", "deadline_moved")
+			animation_complete(self)
+		end
+	)
+end
+
+function animation_complete(self)
+	print("animation_complete")
+	if #self.animation_queue > 0 then
+		table.remove(self.animation_queue, 1)(self)
+	else
+		self.animating = false
+	end
 end
 
 function countdown(self)
@@ -40,12 +70,7 @@ function on_message(self, message_id, message, sender)
 		print(time)
 		timer.delay(1, true, continue_countdown)
 	elseif message_id == hash("move_up") then
-		local new_position_y = go.get_position().y + c.DEADLINE_RAISE*c.TILE_SIZE
-		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
-			new_position_y, go.EASING_INOUTQUAD, 0.5, 0,
-				function(self, url, property)
-					msg.post("/main#script", "deadline_moved")
-				end)
+		animate_or_queue(self, move_up)
 	elseif message_id == hash("block_removed") then
 		self.down_by = self.down_by + 1
 	end
