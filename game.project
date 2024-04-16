@@ -28,6 +28,9 @@ input_method = HiddenInputField
 gravity_y = -100.0
 use_fixed_timestep = 1
 velocity_threshold = 10.0
+max_collision_object_count = 512
+max_collisions = 256
+max_contacts = 512
 
 [graphics]
 default_texture_min_filter = nearest
