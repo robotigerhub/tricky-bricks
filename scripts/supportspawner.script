@@ -15,7 +15,7 @@ end
 function spawn_support()
 	local position
 	repeat
-		position = go.get_position("/deadline") + get_sup_offset()
+		position = get_sup_position()
 		local from = position
 		local to = position + vmath.vector3(1, 0, 0)
 		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
@@ -23,11 +23,13 @@ function spawn_support()
 	factory.create("#factory", position)
 end
 
-function get_sup_offset()
+function get_sup_position()
 	local x = math.random(c.SUPPORT_X_MIN, c.SUPPORT_X_MAX)*c.TILE_SIZE
 	if math.random() < 0.5 then
 		x = -x
 	end
-	local y = (math.random(c.DEADLINE_RAISE - 1) - c.DEADLINE_RAISE)*c.TILE_SIZE
+	local rand_min = go.get_position("/raycaster").y / c.TILE_SIZE
+	local rand_max = go.get_position("/deadline").y / c.TILE_SIZE
+	local y = math.random(rand_min, rand_max) * c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end
