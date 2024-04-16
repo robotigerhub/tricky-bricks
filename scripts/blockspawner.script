@@ -20,7 +20,9 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
 	elseif message_id == hash("delete_last_block") then
-		go.delete(self.last_block)
+		if go.exists(self.last_block) then
+			go.delete(self.last_block)
+		end
 	end
 end
 
