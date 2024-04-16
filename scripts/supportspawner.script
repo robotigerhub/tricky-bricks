@@ -35,6 +35,6 @@ function get_sup_offset()
 	if math.random() < 0.5 then
 		x = -x
 	end
-	local y = (math.random(c.DEADLINE_RAISE) - c.DEADLINE_RAISE)*c.TILE_SIZE
+	local y = (math.random(c.DEADLINE_RAISE - 1) - c.DEADLINE_RAISE)*c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end
