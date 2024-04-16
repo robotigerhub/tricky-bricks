@@ -6,24 +6,27 @@ local spawn_block, move_up
 
 function init(self)
 	self.spawn = true
+	self.last_block = nil
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_block") then
 		if self.spawn then
-			spawn_block()
+			spawn_block(self)
 			msg.post("/main#script", "block_spawned")
 		end
 	elseif message_id == hash("move_up") then
 		move_up()
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
+	elseif message_id == hash("delete_last_block") then
+		go.delete(self.last_block)
 	end
 end
 
-function spawn_block()
+function spawn_block(self)
 	local f = "#factory" .. BLOCK_TYPES[math.random(#BLOCK_TYPES)]
-	factory.create(f, go.get_position("."))
+	self.last_block = factory.create(f, go.get_position("."))
 end
 
 function move_up()

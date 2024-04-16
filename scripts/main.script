@@ -39,9 +39,7 @@ function after_block_put()
 	if blocks_to_spawn == 0 then
 		switch_level()
 	else
-		timer.delay(0.05, false, function()
-			msg.post("/blockspawner#script", "spawn_block")
-		end)
+		msg.post("/blockspawner#script", "spawn_block")
 	end
 end
 
