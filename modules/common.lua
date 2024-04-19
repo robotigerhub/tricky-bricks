@@ -4,6 +4,8 @@ M.TILE_SIZE = 18  -- px
 M.DEADLINE_RAISE = 6  -- tiles
 M.SUPPORT_X_MIN = 4  -- tiles
 M.SUPPORT_X_MAX = 7  -- tiles
+M.SPAWN_DEADLINE_DIST = 10  -- tiles
+M.SPAWN_RAYCASTER_DIST = 15  -- tiles
 M.STATES = {current = {still = 1, skidding = 2}, put = 3, falling = 4}
 
 function M.is_state(my_state, state)

@@ -37,6 +37,7 @@ function move_up(self)
 end
 
 function animation_complete(self)
+	msg.post("/blockspawner", "move")
 	if #self.animation_queue > 0 then
 		table.remove(self.animation_queue, 1)(self)
 	else
