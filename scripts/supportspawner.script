@@ -29,7 +29,7 @@ function get_sup_position()
 		x = -x
 	end
 	local rand_min = go.get_position("/raycaster").y / c.TILE_SIZE
-	local rand_max = go.get_position("/deadline").y / c.TILE_SIZE
+	local rand_max = go.get_position("/deadline").y / c.TILE_SIZE - 1
 	local y = math.random(rand_min, rand_max) * c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
 end
