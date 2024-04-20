@@ -6,7 +6,7 @@ local spawn_block, move_up, choose_next_block_type
 
 function init(self)
 	self.spawn = true
-	self.last_block = nil
+	self.current_block = nil
 	self.next_block_type = nil
 	choose_next_block_type(self)
 end
@@ -23,23 +23,23 @@ function on_message(self, message_id, message, sender)
 			msg.post("/main#script", "block_spawned")
 		end
 	elseif message_id == hash("move") then
-		move(message.reference_pos)
+		move()
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
 	elseif message_id == hash("delete_last_block") then
-		if go.exists(self.last_block) then
-			go.delete(self.last_block)
+		if go.exists(self.current_block) then
+			go.delete(self.current_block)
 		end
 	end
 end
 
 function spawn_block(self)
 	local f = "#factory" .. self.next_block_type
-	self.last_block = factory.create(f, go.get_position("."))
+	self.current_block = factory.create(f, go.get_position("."))
 	choose_next_block_type(self)
 end
 
-function move(reference_pos)
+function move()
 	local pos_y_raycaster = go.get_position("/raycaster").y + c.SPAWN_RAYCASTER_DIST * c.TILE_SIZE
 	local pos_y_deadline = go.get_position("/deadline").y + c.SPAWN_DEADLINE_DIST * c.TILE_SIZE
 	go.set(".", "position.y", math.max(pos_y_deadline, pos_y_raycaster))
