@@ -30,7 +30,6 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("current_block_removed") then
 		after_block_put()
 	elseif message_id == hash("deadline_moved") then
-		msg.post("/blockspawner#script", "move_up")
 		msg.post("/supportspawner#script", "spawn_supports")
 		msg.post("/blockspawner#script", "spawn_block")
 	end
