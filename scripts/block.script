@@ -52,7 +52,7 @@ end
 function move_and_block(self, vector)
 	move(vector)
 	self.state = c.STATES.current.skidding
-	timer.delay(0.05, false,
+	timer.delay(0.08, false,
 		function(self, handle, time_elapsed)
 			if c.is_state(self.state, c.STATES.current.skidding) then
 				self.state = c.STATES.current.still
