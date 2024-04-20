@@ -15,6 +15,16 @@ function update_block(block)
 	gui.play_flipbook(node, "block_" .. block)
 end
 
+function enable_power()
+	local node = gui.get_node("power")
+	gui.play_particlefx(node)
+end
+
+function disable_power()
+	local node = gui.get_node("power")
+	gui.stop_particlefx(node)
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("update_score") then
 		update_score(message.score)
@@ -22,5 +32,9 @@ function on_message(self, message_id, message, sender)
 		update_count(message.count)
 	elseif message_id == hash("update_block") then
 		update_block(message.block)
+	elseif message_id == hash("enable_power") then
+		enable_power()
+	elseif message_id == hash("disable_power") then
+		disable_power()
 	end
 end

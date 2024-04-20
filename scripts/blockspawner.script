@@ -9,10 +9,10 @@ function init(self)
 	self.spawned_block = nil
 	self.put_block = nil
 	self.next_block_type = nil
-	choose_next_block_type(self)
+	draw_next_block_type(self)
 end
 
-function choose_next_block_type(self)
+function draw_next_block_type(self)
 	self.next_block_type = BLOCK_TYPES[math.random(#BLOCK_TYPES)]
 	msg.post("/guis#main", "update_block", {block = self.next_block_type})
 end
@@ -28,21 +28,22 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
 	elseif message_id == hash("delete_spawned_block") then
-		if self.spawned_block then
+		if self.spawned_block and go.exists(self.spawned_block) then
 			go.delete(self.spawned_block)
 		end
 	elseif message_id == hash("delete_put_block") then
-		if self.put_block then
+		if self.put_block and go.exists(self.put_block) then
 			go.delete(self.put_block)
 		end
+	elseif message_id == hash("pass_spawned_to_put") then
+		self.put_block = self.spawned_block
 	end
 end
 
 function spawn_block(self)
-	local f = "#factory" .. self.next_block_type
-	self.put_block = self.spawned_block
+	local f = "#factoryl"-- .. self.next_block_type
 	self.spawned_block = factory.create(f, go.get_position("."))
-	choose_next_block_type(self)
+	draw_next_block_type(self)
 end
 
 function move()
