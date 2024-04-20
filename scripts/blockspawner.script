@@ -2,11 +2,18 @@ local c = require("modules.common")
 
 local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
 
-local spawn_block, move_up
+local spawn_block, move_up, choose_next_block_type
 
 function init(self)
 	self.spawn = true
 	self.last_block = nil
+	self.next_block_type = nil
+	choose_next_block_type(self)
+end
+
+function choose_next_block_type(self)
+	self.next_block_type = BLOCK_TYPES[math.random(#BLOCK_TYPES)]
+	msg.post("/guis#main", "update_block", {block = self.next_block_type})
 end
 
 function on_message(self, message_id, message, sender)
@@ -27,8 +34,9 @@ function on_message(self, message_id, message, sender)
 end
 
 function spawn_block(self)
-	local f = "#factory" .. BLOCK_TYPES[math.random(#BLOCK_TYPES)]
+	local f = "#factory" .. self.next_block_type
 	self.last_block = factory.create(f, go.get_position("."))
+	choose_next_block_type(self)
 end
 
 function move(reference_pos)
