@@ -6,7 +6,8 @@ local spawn_block, move_up, choose_next_block_type
 
 function init(self)
 	self.spawn = true
-	self.current_block = nil
+	self.spawned_block = nil
+	self.put_block = nil
 	self.next_block_type = nil
 	choose_next_block_type(self)
 end
@@ -26,16 +27,21 @@ function on_message(self, message_id, message, sender)
 		move()
 	elseif message_id == hash("stop_spawning") then
 		self.spawn = false
-	elseif message_id == hash("delete_last_block") then
-		if go.exists(self.current_block) then
-			go.delete(self.current_block)
+	elseif message_id == hash("delete_spawned_block") then
+		if self.spawned_block then
+			go.delete(self.spawned_block)
+		end
+	elseif message_id == hash("delete_put_block") then
+		if self.put_block then
+			go.delete(self.put_block)
 		end
 	end
 end
 
 function spawn_block(self)
 	local f = "#factory" .. self.next_block_type
-	self.current_block = factory.create(f, go.get_position("."))
+	self.put_block = self.spawned_block
+	self.spawned_block = factory.create(f, go.get_position("."))
 	choose_next_block_type(self)
 end
 

@@ -34,3 +34,7 @@ key_trigger {
   input: KEY_DOWN
   action: "fast"
 }
+key_trigger {
+  input: KEY_R
+  action: "remove"
+}
