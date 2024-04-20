@@ -41,7 +41,7 @@ function on_message(self, message_id, message, sender)
 end
 
 function spawn_block(self)
-	local f = "#factoryl"-- .. self.next_block_type
+	local f = "#factory" .. self.next_block_type
 	self.spawned_block = factory.create(f, go.get_position("."))
 	draw_next_block_type(self)
 end
