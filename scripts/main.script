@@ -1,31 +1,32 @@
 local LEVEL_STEP = 2
 
-local blocks_to_spawn = 6
-local last_level = blocks_to_spawn
-local total_block_count = 0
+local count = 6
+local last_level = count
+local score = 0
 
-local after_block_put, update_gui, post_spawn_message, switch_level
+local after_block_put, post_spawn_message, switch_level, set_count, change_score
 
 function init(self)
 	math.randomseed(os.time())
 	math.random();math.random();math.random();  -- discard first few random numbers
+	msg.post("/guis#main", "update_score", {score = score})
+	msg.post("/guis#main", "update_count", {count = count})
 	msg.post("/basespawner#script", "spawn_base")
 	msg.post("/blockspawner#script", "spawn_block")
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("block_spawned") then
-		blocks_to_spawn = blocks_to_spawn - 1
-		update_gui()
+		set_count(count - 1)
 	elseif message_id == hash("block_put") then
-		total_block_count = total_block_count + 1
+		change_score(1)
 		after_block_put()
 	elseif message_id == hash("block_lost") then
-		total_block_count = total_block_count - 1
+		change_score(-1)
 	elseif message_id == hash("block_saved") then
-		total_block_count = total_block_count + 1
+		change_score(1)
 	elseif message_id == hash("show_game_over") then
-		print("YOUR SCORE:", total_block_count)
+		print("YOUR SCORE:", score)
 	elseif message_id == hash("current_block_removed") then
 		after_block_put()
 	elseif message_id == hash("deadline_moved") then
@@ -35,20 +36,25 @@ function on_message(self, message_id, message, sender)
 	end
 end
 
+function change_score(value)
+	score = score + value
+	msg.post("/guis#main", "update_score", {score = score})
+end
+
 function after_block_put()
-	if blocks_to_spawn == 0 then
+	if count == 0 then
 		switch_level()
 	else
 		msg.post("/blockspawner#script", "spawn_block")
 	end
 end
 
-function update_gui()
-	do end
+function set_count(value)
+	count = value
+	msg.post("/guis#main", "update_count", {count = count})
 end
 
 function switch_level()
-	blocks_to_spawn = last_level + LEVEL_STEP
-	last_level = blocks_to_spawn
+	set_count(last_level + LEVEL_STEP)
 	msg.post("/deadline#script", "move_up")
 end
