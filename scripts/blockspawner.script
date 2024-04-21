@@ -8,7 +8,7 @@ function init(self)
 	self.spawn = true
 	self.spawned_block = nil
 	self.put_block = nil
-	self.next_block_type = nil
+	self.next_block_type = ""
 	draw_next_block_type(self)
 end
 
