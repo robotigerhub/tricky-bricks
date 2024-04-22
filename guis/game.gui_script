@@ -15,6 +15,14 @@ local function update_block(block)
 	gui.play_flipbook(node, "block_" .. block)
 end
 
+local function update_countdown(text)
+	local node = gui.get_node("countdown")
+	if not gui.is_enabled(node, false) then  -- recursive = false
+		gui.set_enabled(node, true)
+	end
+	gui.set_text(node, text)
+end
+
 local function play_power()
 	local node = gui.get_node("power")
 	gui.play_particlefx(node)
@@ -32,6 +40,8 @@ function on_message(self, message_id, message, sender)
 		update_count(message.count)
 	elseif message_id == hash("update_block") then
 		update_block(message.block)
+	elseif message_id == hash("update_countdown") then
+		update_countdown(message.text)
 	elseif message_id == hash("enable_power") then
 		play_power()
 	elseif message_id == hash("disable_power") then

@@ -1,17 +1,5 @@
 local c = require("modules.common")
 
-local function countdown(self)
-	coroutine.yield(3)
-	coroutine.yield(2)
-	return 1
-end
-
-function init(self)
-	self.cd = coroutine.create(countdown)
-	self.animation_queue = {}
-	self.animating = false
-end
-
 local function animate_or_queue(self, animation)
 	if not self.animating then
 		self.animating = true
@@ -48,14 +36,20 @@ local function move_up(self)
 	)
 end
 
-local function continue_countdown(self, handle, time_elapsed)
-	local status, time = coroutine.resume(self.cd, self)
-	if status then
-		print(time)
-	else
-		msg.post("/main#script", "game_over")
-		timer.cancel(handle)
+local function countdown(self)
+	for i = 3, 1, -1 do
+		msg.post("/guis#gui", "update_countdown", { text = tostring(i) })
+		coroutine.yield()
 	end
+	msg.post("/guis#gui", "update_countdown", { text = "FINISH" })
+	msg.post("/main#script", "game_over")
+	return
+end
+
+function init(self)
+	self.cd = coroutine.create(countdown)
+	self.animation_queue = {}
+	self.animating = false
 end
 
 function on_message(self, message_id, message, sender)
@@ -64,9 +58,13 @@ function on_message(self, message_id, message, sender)
 		msg.post("/main", "block_lost")
 		msg.post("/blockspawner#script", "stop_spawning")
 		msg.post("/blockspawner#script", "delete_spawned_block")
-		_, time = coroutine.resume(self.cd, self)
-		print(time)
-		timer.delay(1, true, continue_countdown)
+		coroutine.resume(self.cd, self)
+		timer.delay(1, true, function(self, handle, time_elapsed)
+			local status = coroutine.resume(self.cd, self)
+			if not status then
+				timer.cancel(handle)
+			end
+		end)
 	elseif message_id == hash("move_up") then
 		animate_or_queue(self, move_up)
 	elseif message_id == hash("block_removed") then

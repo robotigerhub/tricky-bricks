@@ -12,6 +12,8 @@ function on_message(self, message_id, message, sender)
 		msg.post("#gameproxy", "set_time_step", {factor = 1, mode = 1})
 	elseif message_id == hash("end_game") then
 		msg.post("#gameproxy", "set_time_step", {factor = 0, mode = 0})
-		msg.post("/guis#gui", "show_end")
+		timer.delay(1, false, function()
+			msg.post("/guis#gui", "show_end")
+		end)
 	end
 end
