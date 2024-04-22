@@ -53,7 +53,7 @@ local function continue_countdown(self, handle, time_elapsed)
 	if status then
 		print(time)
 	else
-		msg.post("/main#script", "show_game_over")
+		msg.post("/main#script", "game_over")
 		timer.cancel(handle)
 	end
 end

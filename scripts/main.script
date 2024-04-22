@@ -28,8 +28,8 @@ function on_message(self, message_id, message, sender)
 		change_score(-1)
 	elseif message_id == hash("block_saved") then
 		change_score(1)
-	elseif message_id == hash("show_game_over") then
-		msg.post("main:/guis#gui", "show_end")
+	elseif message_id == hash("game_over") then
+		msg.post("main:/loader#script", "end_game")
 	elseif message_id == hash("current_block_removed") then
 		spawn_or_switch()
 	elseif message_id == hash("deadline_moved") then

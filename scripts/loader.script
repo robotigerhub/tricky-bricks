@@ -9,5 +9,9 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("restart_game") then
 		msg.post("#gameproxy", "unload")
 		msg.post("#gameproxy", "async_load")
+		msg.post("#gameproxy", "set_time_step", {factor = 1, mode = 1})
+	elseif message_id == hash("end_game") then
+		msg.post("#gameproxy", "set_time_step", {factor = 0, mode = 0})
+		msg.post("/guis#gui", "show_end")
 	end
 end
