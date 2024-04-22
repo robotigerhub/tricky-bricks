@@ -1,5 +1,6 @@
 function init(self)
 	msg.post(".", "acquire_input_focus")
+end
 
 local function update_score(score)
 	local node = gui.get_node("score")
@@ -53,6 +54,7 @@ function on_input(self, action_id, action)
 	if action_id == hash("touch") and action.pressed then
 		local node = gui.get_node("button")
 		if gui.is_enabled(node, true) and gui.pick_node(node, action.x, action.y) then
-			do end
+			msg.post("main:/loader#script", "restart_game")
+		end
 	end
 end
