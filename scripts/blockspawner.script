@@ -14,7 +14,7 @@ end
 
 function draw_next_block_type(self)
 	self.next_block_type = BLOCK_TYPES[math.random(#BLOCK_TYPES)]
-	msg.post("/guis#main", "update_block", {block = self.next_block_type})
+	msg.post("/guis#gui", "update_block", {block = self.next_block_type})
 end
 
 function on_message(self, message_id, message, sender)

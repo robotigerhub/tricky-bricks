@@ -11,8 +11,8 @@ function init(self)
 	math.randomseed(os.time())
 	math.random();math.random();math.random();  -- discard first few random numbers
 	msg.post(".", "acquire_input_focus")
-	msg.post("/guis#main", "update_score", {score = score})
-	msg.post("/guis#main", "update_count", {count = count})
+	msg.post("/guis#gui", "update_score", {score = score})
+	msg.post("/guis#gui", "update_count", {count = count})
 	msg.post("/basespawner#script", "spawn_base")
 	msg.post("/blockspawner#script", "spawn_block")
 end
@@ -29,12 +29,12 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("block_saved") then
 		change_score(1)
 	elseif message_id == hash("show_game_over") then
-		msg.post("/guis#main", "show_end")
+		msg.post("/guis#gui", "show_end")
 	elseif message_id == hash("current_block_removed") then
 		spawn_or_switch()
 	elseif message_id == hash("deadline_moved") then
 		power = true
-		msg.post("/guis#main", "enable_power")
+		msg.post("/guis#gui", "enable_power")
 		msg.post("/supportspawner#script", "spawn_supports")
 		msg.post("/blockspawner#script", "spawn_block")
 	end
@@ -42,7 +42,7 @@ end
 
 function change_score(value)
 	score = score + value
-	msg.post("/guis#main", "update_score", {score = score})
+	msg.post("/guis#gui", "update_score", {score = score})
 end
 
 function spawn_or_switch()
@@ -55,7 +55,7 @@ end
 
 function set_count(value)
 	count = value
-	msg.post("/guis#main", "update_count", {count = count})
+	msg.post("/guis#gui", "update_count", {count = count})
 end
 
 function switch_level()
@@ -67,7 +67,7 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("remove") and power then
 		power = false
-		msg.post("/guis#main", "disable_power")
+		msg.post("/guis#gui", "disable_power")
 		msg.post("/blockspawner", "delete_put_block")
 	end
 end

@@ -1,4 +1,4 @@
-script: "/guis/main.gui_script"
+script: "/guis/game.gui_script"
 fonts {
   name: "default"
   font: "/assets/fonts/default.font"

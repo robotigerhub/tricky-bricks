@@ -699,8 +699,8 @@ embedded_instances {
 embedded_instances {
   id: "guis"
   data: "components {\n"
-  "  id: \"main\"\n"
-  "  component: \"/guis/main.gui\"\n"
+  "  id: \"gui\"\n"
+  "  component: \"/guis/game.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
