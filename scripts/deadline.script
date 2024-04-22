@@ -1,7 +1,10 @@
 local c = require("modules.common")
 
-local animate_or_queue, move_down, move_up, animation_complete
-local countdown, continue_countdown
+local function countdown(self)
+	coroutine.yield(3)
+	coroutine.yield(2)
+	return 1
+end
 
 function init(self)
 	self.cd = coroutine.create(countdown)
@@ -9,7 +12,7 @@ function init(self)
 	self.animating = false
 end
 
-function animate_or_queue(self, animation)
+local function animate_or_queue(self, animation)
 	if not self.animating then
 		self.animating = true
 		animation(self)
@@ -18,14 +21,23 @@ function animate_or_queue(self, animation)
 	end
 end
 
-function move_down(self)
+local function animation_complete(self)
+	msg.post("/blockspawner", "move")
+	if #self.animation_queue > 0 then
+		table.remove(self.animation_queue, 1)(self)
+	else
+		self.animating = false
+	end
+end
+
+local function move_down(self)
 	local new_position_y = go.get_position().y - c.TILE_SIZE
 	go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
 		new_position_y, go.EASING_LINEAR, 0.3, 0, animation_complete
 	)
 end
 
-function move_up(self)
+local function move_up(self)
 	local new_position_y = go.get_position().y + c.DEADLINE_RAISE*c.TILE_SIZE
 	go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD,
 		new_position_y, go.EASING_INOUTQUAD, 0.5, 0,
@@ -36,19 +48,14 @@ function move_up(self)
 	)
 end
 
-function animation_complete(self)
-	msg.post("/blockspawner", "move")
-	if #self.animation_queue > 0 then
-		table.remove(self.animation_queue, 1)(self)
+local function continue_countdown(self, handle, time_elapsed)
+	local status, time = coroutine.resume(self.cd, self)
+	if status then
+		print(time)
 	else
-		self.animating = false
+		msg.post("/main#script", "show_game_over")
+		timer.cancel(handle)
 	end
-end
-
-function countdown(self)
-	coroutine.yield(3)
-	coroutine.yield(2)
-	return 1
 end
 
 function on_message(self, message_id, message, sender)
@@ -64,15 +71,5 @@ function on_message(self, message_id, message, sender)
 		animate_or_queue(self, move_up)
 	elseif message_id == hash("block_removed") then
 		animate_or_queue(self, move_down)
-	end
-end
-
-function continue_countdown(self, handle, time_elapsed)
-	local status, time = coroutine.resume(self.cd, self)
-	if status then
-		print(time)
-	else
-		msg.post("/main#script", "show_game_over")
-		timer.cancel(handle)
 	end
 end
