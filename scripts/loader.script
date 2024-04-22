@@ -6,9 +6,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("proxy_loaded") then
 		msg.post(sender, "enable")
-	elseif message_id == hash("proxy_unloaded") then
-		msg.post("#gameproxy", "load")
 	elseif message_id == hash("restart_game") then
 		msg.post("#gameproxy", "unload")
+		msg.post("#gameproxy", "async_load")
 	end
 end
