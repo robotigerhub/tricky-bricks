@@ -4,7 +4,7 @@ function init(self)
 	self.counter = 0
 end
 
-function get_sup_position()
+local function get_rand_position()
 	local x = math.random(c.SUPPORT_X_MIN, c.SUPPORT_X_MAX)*c.TILE_SIZE
 	if math.random() < 0.5 then
 		x = -x
@@ -15,10 +15,10 @@ function get_sup_position()
 	return vmath.vector3(x, y, 0)
 end
 
-function spawn_support()
+local function spawn_support()
 	local position
 	repeat
-		position = get_sup_position()
+		position = get_rand_position()
 		local from = position + vmath.vector3(0, 10, 0)
 		local to = position
 		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
