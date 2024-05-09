@@ -1,26 +1,7 @@
 local c = require("modules.common")
 
-local SUPPORT_COUNT = 4
-
-local spawn_supports, get_sup_offet
-
-function on_message(self, message_id, message, sender)
-	if message_id == hash("spawn_supports") then
-		for _ = 1, SUPPORT_COUNT do
-			spawn_support()
-		end
-	end
-end
-
-function spawn_support()
-	local position
-	repeat
-		position = get_sup_position()
-		local from = position
-		local to = position + vmath.vector3(1, 0, 0)
-		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
-	until not taken
-	factory.create("#factory", position)
+function init(self)
+	self.counter = 0
 end
 
 function get_sup_position()
@@ -28,8 +9,33 @@ function get_sup_position()
 	if math.random() < 0.5 then
 		x = -x
 	end
-	local rand_min = go.get_position("/raycaster").y / c.TILE_SIZE
-	local rand_max = go.get_position("/deadline").y / c.TILE_SIZE - 1
-	local y = math.random(rand_min, rand_max) * c.TILE_SIZE
+	local y_tile_min = go.get_position("/raycaster").y / c.TILE_SIZE
+	local y_tile_max = go.get_position("/deadline").y / c.TILE_SIZE - 1
+	local y = math.random(y_tile_min, y_tile_max) * c.TILE_SIZE
 	return vmath.vector3(x, y, 0)
+end
+
+function spawn_support()
+	local position
+	repeat
+		position = get_sup_position()
+		local from = position + vmath.vector3(0, 10, 0)
+		local to = position
+		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
+	until not taken
+	factory.create("#factory", position)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn_supports") then
+		self.counter = 0
+		timer.delay(0.1, true, function(self, handle, time_elapsed)
+			spawn_support()
+			self.counter = self.counter + 1
+			if self.counter == c.SUPPORT_COUNT then
+				msg.post("/main#script", "supports_spawned")
+				timer.cancel(handle)
+			end
+		end)
+	end
 end

@@ -36,6 +36,7 @@ function on_message(self, message_id, message, sender)
 		power = true
 		msg.post("/guis#gui", "enable_power")
 		msg.post("/supportspawner#script", "spawn_supports")
+	elseif message_id == hash("supports_spawned") then
 		msg.post("/blockspawner#script", "spawn_block")
 	end
 end

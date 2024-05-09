@@ -1,6 +1,7 @@
 local M = {}
 
 M.TILE_SIZE = 18  -- px
+M.SUPPORT_COUNT = 4
 M.DEADLINE_RAISE = 5  -- tiles
 M.SUPPORT_X_MIN = 4  -- tiles
 M.SUPPORT_X_MAX = 7  -- tiles
