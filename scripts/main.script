@@ -1,3 +1,5 @@
+-- TODO: highscores, zoom-out the camera after play
+
 local LEVEL_STEP = 2
 
 local count = 6
