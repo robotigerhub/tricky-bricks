@@ -28,12 +28,12 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_supports") then
-		self.counter = 0
 		timer.delay(0.1, true, function(self, handle, time_elapsed)
 			spawn_support()
 			self.counter = self.counter + 1
 			if self.counter == c.SUPPORT_COUNT then
 				msg.post("/main#script", "supports_spawned")
+				self.counter = 0
 				timer.cancel(handle)
 			end
 		end)
