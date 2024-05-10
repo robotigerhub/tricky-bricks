@@ -6,7 +6,7 @@ local adjust, cast_ray, move_one_tile
 
 function init(self)
 	msg.post("#sprite", "disable")
-	timer.delay(1, true, function()
+	self.timer = timer.delay(1, true, function()
 		adjust()
 		msg.post("/camera#script", "adjust_height", {position_y = go.get_position().y})
 		msg.post("/blockspawner", "move")
@@ -42,4 +42,10 @@ function move_one_tile(dir)
 		print("Wrong move direction")
 	end
 	go.set(".", "position.y", new_position_y)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("stop") then
+		timer.cancel(self.timer)
+	end
 end

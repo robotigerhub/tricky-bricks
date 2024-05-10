@@ -1,7 +1,13 @@
+local c = require("modules.common")
+
 local BASE_POSITION_Y
+local FINISH_POSITION_Y
+local OUT_ZOOM = 0.7
 
 function init(self)
 	BASE_POSITION_Y = go.get_position().y
+	local lowest_y = go.get_position("/basespawner").y - 2.5*c.TILE_SIZE
+	FINISH_POSITION_Y = BASE_POSITION_Y - (1/OUT_ZOOM - 1) * (lowest_y - BASE_POSITION_Y)
 	msg.post("#camera", "acquire_camera_focus")
 	msg.post("@render:", "use_camera_projection")
 end
@@ -12,5 +18,10 @@ function on_message(self, message_id, message, sender)
 			math.max(BASE_POSITION_Y, message.position_y),
 			go.EASING_LINEAR, 1
 		)
+	elseif message_id == hash("zoom_out") then
+		go.cancel_animations(".", "position")
+		go.set(".", "position.y", math.max(FINISH_POSITION_Y, go.get_position().y))
+		msg.post("/raycaster", "stop")
+		go.animate("#camera", "orthographic_zoom", go.PLAYBACK_ONCE_FORWARD, OUT_ZOOM, go.EASING_INOUTQUAD, 0.5)
 	end
 end
