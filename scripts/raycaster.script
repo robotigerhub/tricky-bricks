@@ -8,7 +8,7 @@ function init(self)
 	msg.post("#sprite", "disable")
 	timer.delay(1, true, function()
 		adjust()
-		msg.post("/camera#script", "adjust", {position_y = go.get_position().y})
+		msg.post("/camera#script", "adjust_height", {position_y = go.get_position().y})
 		msg.post("/blockspawner", "move")
 	end)
 end
