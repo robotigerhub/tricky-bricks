@@ -1,9 +1,5 @@
 local c = require("modules.common")
 
-function init(self)
-	self.counter = 0
-end
-
 local function get_rand_position()
 	local x = math.random(c.SUPPORT_X_MIN, c.SUPPORT_X_MAX)*c.TILE_SIZE
 	if math.random() < 0.5 then
@@ -24,6 +20,10 @@ local function spawn_support()
 		local taken = physics.raycast(from, to, {hash("support"), hash("block-put")}, {all=false})
 	until not taken
 	factory.create("#factory", position)
+end
+
+function init(self)
+	self.counter = 0
 end
 
 function on_message(self, message_id, message, sender)

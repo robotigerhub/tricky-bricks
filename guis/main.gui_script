@@ -1,7 +1,3 @@
-function init(self)
-	msg.post(".", "acquire_input_focus")
-end
-
 local function enable_end()
 	local node = gui.get_node("end")
 	gui.set_enabled(node, true)
@@ -10,6 +6,10 @@ end
 local function disable_end()
 	local node = gui.get_node("end")
 	gui.set_enabled(node, false)
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
 end
 
 function on_message(self, message_id, message, sender)

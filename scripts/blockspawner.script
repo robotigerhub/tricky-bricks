@@ -2,7 +2,22 @@ local c = require("modules.common")
 
 local BLOCK_TYPES = {"s", "z", "j", "l", "o", "i", "t"}
 
-local spawn_block, move_up, choose_next_block_type
+local function draw_next_block_type(self)
+	self.next_block_type = BLOCK_TYPES[math.random(#BLOCK_TYPES)]
+	msg.post("/guis#gui", "update_block", {block = self.next_block_type})
+end
+
+local function spawn_block(self)
+	local f = "#factory" .. self.next_block_type
+	self.spawned_block = factory.create(f, go.get_position("."))
+	draw_next_block_type(self)
+end
+
+local function move()
+	local pos_y_raycaster = go.get_position("/raycaster").y + c.SPAWN_RAYCASTER_DIST * c.TILE_SIZE
+	local pos_y_deadline = go.get_position("/deadline").y + c.SPAWN_DEADLINE_DIST * c.TILE_SIZE
+	go.set(".", "position.y", math.max(pos_y_deadline, pos_y_raycaster))
+end
 
 function init(self)
 	self.spawn = true
@@ -10,11 +25,6 @@ function init(self)
 	self.put_block = nil
 	self.next_block_type = ""
 	draw_next_block_type(self)
-end
-
-function draw_next_block_type(self)
-	self.next_block_type = BLOCK_TYPES[math.random(#BLOCK_TYPES)]
-	msg.post("/guis#gui", "update_block", {block = self.next_block_type})
 end
 
 function on_message(self, message_id, message, sender)
@@ -38,16 +48,4 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("pass_spawned_to_put") then
 		self.put_block = self.spawned_block
 	end
-end
-
-function spawn_block(self)
-	local f = "#factory" .. self.next_block_type
-	self.spawned_block = factory.create(f, go.get_position("."))
-	draw_next_block_type(self)
-end
-
-function move()
-	local pos_y_raycaster = go.get_position("/raycaster").y + c.SPAWN_RAYCASTER_DIST * c.TILE_SIZE
-	local pos_y_deadline = go.get_position("/deadline").y + c.SPAWN_DEADLINE_DIST * c.TILE_SIZE
-	go.set(".", "position.y", math.max(pos_y_deadline, pos_y_raycaster))
 end

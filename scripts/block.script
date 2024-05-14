@@ -7,7 +7,33 @@ local SPEED_HIGH = 120
 local Q_90_ABOUT_Z = vmath.quat_axis_angle(vmath.vector3(0, 0, 1), math.pi/2)
 
 local speed = SPEED_LOW
-local move, move_and_block, is_fast, check_fall
+
+local function move(vector)
+	go.set_position(go.get_position() + vector)
+end
+
+local function move_and_block(self, vector)
+	move(vector)
+	self.state = c.STATES.current.skidding
+	timer.delay(0.08, false,
+	function(self, handle, time_elapsed)
+		if c.is_state(self.state, c.STATES.current.skidding) then
+			self.state = c.STATES.current.still
+		end
+	end)
+end
+
+local function is_fast()
+	return vmath.length_sqr(go.get("#dynamicco", "linear_velocity")) > 20^2
+end
+
+local function check_fall(self, handle, time_elapsed)
+	if is_fast() then
+		self.state = c.STATES.falling
+		msg.post("/main#script", "block_lost")
+		timer.cancel(handle)
+	end
+end
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
@@ -20,10 +46,6 @@ function update(self, dt)
 		move(vmath.vector3(0, -speed*dt, 0))
 		speed = SPEED_LOW
 	end
-end
-
-function move(vector)
-	go.set_position(go.get_position() + vector)
 end
 
 function on_input(self, action_id, action)
@@ -49,17 +71,6 @@ function on_input(self, action_id, action)
 	end
 end
 
-function move_and_block(self, vector)
-	move(vector)
-	self.state = c.STATES.current.skidding
-	timer.delay(0.08, false,
-		function(self, handle, time_elapsed)
-			if c.is_state(self.state, c.STATES.current.skidding) then
-				self.state = c.STATES.current.still
-			end
-		end)
-end
-
 function on_message(self, message_id, message, sender)
 	if c.is_state(self.state, c.STATES.current)
 	and message_id == hash("contact_point_response")
@@ -76,17 +87,5 @@ function on_message(self, message_id, message, sender)
 		self.state = c.STATES.put
 		msg.post("/main#script", "block_saved")
 		timer.delay(1, true, check_fall)
-	end
-end
-
-function is_fast()
-	return vmath.length_sqr(go.get("#dynamicco", "linear_velocity")) > 20^2
-end
-
-function check_fall(self, handle, time_elapsed)
-	if is_fast() then
-		self.state = c.STATES.falling
-		msg.post("/main#script", "block_lost")
-		timer.cancel(handle)
 	end
 end

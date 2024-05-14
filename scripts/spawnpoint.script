@@ -1,13 +1,11 @@
 local c = require("modules.common")
 
-local move_up
+local function move_up()
+	go.set_position(go.get_position() + vmath.vector3(0, c.SPAWNPOINT_RAISE*c.TILE_SIZE, 0))
+end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("move_up") then
 		move_up()
 	end
-end
-
-function move_up()
-	go.set_position(go.get_position() + vmath.vector3(0, c.SPAWNPOINT_RAISE*c.TILE_SIZE, 0))
 end

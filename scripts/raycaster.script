@@ -2,18 +2,26 @@ local c = require("modules.common")
 
 local DIRS = {up=1, down=2}
 
-local adjust, cast_ray, move_one_tile
-
-function init(self)
-	msg.post("#sprite", "disable")
-	self.timer = timer.delay(1, true, function()
-		adjust()
-		msg.post("/camera#script", "adjust_height", {position_y = go.get_position().y})
-		msg.post("/blockspawner", "move")
-	end)
+local function cast_ray(position)
+	return physics.raycast(
+	position, position - vmath.vector3(1000, 0, 0),
+	{hash("base"), hash("block-put")}, {all=false}
+)
 end
 
-function adjust()
+local function move_one_tile(dir)
+	local new_position_y = go.get_position().y
+	if dir == DIRS.up then
+		new_position_y = new_position_y + c.TILE_SIZE
+	elseif dir == DIRS.down then
+		new_position_y = new_position_y - c.TILE_SIZE
+	else
+		print("Wrong move direction")
+	end
+	go.set(".", "position.y", new_position_y)
+end
+
+local function adjust()
 	repeat
 		local upper_hit = cast_ray(go.get_position())
 		local lower_hit = cast_ray(go.get_position() - vmath.vector3(0, c.TILE_SIZE, 0))
@@ -25,23 +33,13 @@ function adjust()
 	until lower_hit and not upper_hit
 end
 
-function cast_ray(position)
-	return physics.raycast(
-		position, position - vmath.vector3(1000, 0, 0),
-		{hash("base"), hash("block-put")}, {all=false}
-	)
-end
-
-function move_one_tile(dir)
-	local new_position_y = go.get_position().y
-	if dir == DIRS.up then
-		new_position_y = new_position_y + c.TILE_SIZE
-	elseif dir == DIRS.down then
-		new_position_y = new_position_y - c.TILE_SIZE
-	else
-		print("Wrong move direction")
-	end
-	go.set(".", "position.y", new_position_y)
+function init(self)
+	msg.post("#sprite", "disable")
+	self.timer = timer.delay(1, true, function()
+		adjust()
+		msg.post("/camera#script", "adjust_height", {position_y = go.get_position().y})
+		msg.post("/blockspawner", "move")
+	end)
 end
 
 function on_message(self, message_id, message, sender)

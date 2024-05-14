@@ -1,13 +1,36 @@
 local LEVEL_STEP = 2
+local BASE_COUNT = 6
 
-local count = 6
+local count = BASE_COUNT
 local last_level = count
 local score = 0
 local save_file = sys.get_save_file("tricky-bricks", "highscore")
 local highscore = sys.load(save_file)["highscore"] or 0
 local power = false
 
-local spawn_or_switch, switch_level, set_count, change_score
+local function change_score(value)
+	score = score + value
+	msg.post("/guis#gui", "update_score", {score = score})
+end
+
+local function set_count(value)
+	count = value
+	msg.post("/guis#gui", "update_count", {count = count})
+end
+
+local function switch_level()
+	set_count(last_level + LEVEL_STEP)
+	last_level = count
+	msg.post("/deadline#script", "move_up")
+end
+
+local function spawn_or_switch()
+	if count == 0 then
+		switch_level()
+	else
+		msg.post("/blockspawner#script", "spawn_block")
+	end
+end
 
 function init(self)
 	math.randomseed(os.time())
@@ -47,30 +70,6 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("supports_spawned") then
 		msg.post("/blockspawner#script", "spawn_block")
 	end
-end
-
-function change_score(value)
-	score = score + value
-	msg.post("/guis#gui", "update_score", {score = score})
-end
-
-function spawn_or_switch()
-	if count == 0 then
-		switch_level()
-	else
-		msg.post("/blockspawner#script", "spawn_block")
-	end
-end
-
-function set_count(value)
-	count = value
-	msg.post("/guis#gui", "update_count", {count = count})
-end
-
-function switch_level()
-	set_count(last_level + LEVEL_STEP)
-	last_level = count
-	msg.post("/deadline#script", "move_up")
 end
 
 function on_input(self, action_id, action)
