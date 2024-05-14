@@ -4,6 +4,12 @@ local function update_score(score)
 	gui.set_text(node, text)
 end
 
+local function update_highscore(highscore)
+	local node = gui.get_node("highscore")
+	local text = "BEST: " .. highscore
+	gui.set_text(node, text)
+end
+
 local function update_count(count)
 	local node = gui.get_node("count")
 	local text = tostring(count)
@@ -36,6 +42,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("update_score") then
 		update_score(message.score)
+	elseif message_id == hash("update_highscore") then
+		update_highscore(message.highscore)
 	elseif message_id == hash("update_count") then
 		update_count(message.count)
 	elseif message_id == hash("update_block") then
