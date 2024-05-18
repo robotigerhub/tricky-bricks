@@ -45,6 +45,8 @@ function update(self, dt)
 	if c.is_state(self.state, c.STATES.current) then
 		move(vmath.vector3(0, -speed*dt, 0))
 		speed = SPEED_LOW
+	elseif c.is_state(self.state, c.STATES.lost) then
+		move(vmath.vector3(0, -SPEED_HIGH*dt, 0))
 	end
 end
 
@@ -87,5 +89,7 @@ function on_message(self, message_id, message, sender)
 		self.state = c.STATES.put
 		msg.post("/main#script", "block_saved")
 		timer.delay(1, true, check_fall)
+	elseif message_id == hash("go_lost") then
+		self.state = c.STATES.lost
 	end
 end
