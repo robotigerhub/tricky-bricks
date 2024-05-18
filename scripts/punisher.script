@@ -1,0 +1,12 @@
+c = require("modules.common")
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.enter then
+		msg.post("/deadline", "block_removed")
+		local block_url = msg.url(nil, message.other_id, "script")
+		msg.post(block_url, "go_lost")
+		if c.is_state(go.get(block_url, "state"), c.STATES.current) then
+			msg.post("/main#script", "current_block_removed")
+		end
+	end
+end
