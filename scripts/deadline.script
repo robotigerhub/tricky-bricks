@@ -55,10 +55,11 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") then
 		go.delete(message.other_id)
-		msg.post("/main", "block_lost")
+		msg.post("/main#script", "block_lost")
 		msg.post("/blockspawner#script", "stop_spawning")
 		msg.post("/blockspawner#script", "delete_spawned_block")
 		msg.post("/camera#script", "zoom_out")
+		msg.post("/main#script", "disable_power")
 		coroutine.resume(self.cd, self)
 		timer.delay(1, true, function(self, handle, time_elapsed)
 			local status = coroutine.resume(self.cd, self)
